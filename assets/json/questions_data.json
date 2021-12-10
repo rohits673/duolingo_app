@@ -1,0 +1,67 @@
+[
+   {
+      "category": "Basic-1",
+      "set": [
+         {
+            "level": "1",
+            "items": [
+               {
+                  "q": "Who is king of jungle",
+                  "i": "assets/images/questions/animals-lion.gif",
+                  "a": "lion"
+               },
+               {
+                  "q": " Who is fastest animal",
+                  "i": "assets/images/questions/animals-tiger.gif",
+                  "a": "tiger"
+               },
+               {
+                  "q": " Who can fly",
+                  "i": "assets/images/questions/sea-birds-ostrich.gif",
+                  "a": "Ostrich"
+               },
+               {
+                  "q": " Who is biggest",
+                  "i": "assets/images/questions/sea-animals-elephant.gif",
+                  "a": "Elephant"
+               },
+               {
+                  "q": " Who is smallest",
+                  "i": "assets/images/questions/sea-animals-mouse.gif",
+                  "a": "Ant"
+               }
+            ]
+         },
+         {
+            "level": "2",
+            "items": [
+               {
+                  "q": " Who is king of jungle",
+                  "i": "assets/images/questions/sea-animals-shark.gif",
+                  "a": "lion"
+               },
+               {
+                  "q": " Who is fastes animal",
+                  "i": "assets/images/questions/sea-animals-shark.gif",
+                  "a": "tiger"
+               },
+               {
+                  "q": " Who can fly",
+                  "i": "assets/images/questions/sea-animals-shark.gif",
+                  "a": "Ostrich"
+               },
+               {
+                  "q": " Who is biggest",
+                  "i": "assets/images/questions/sea-animals-shark.gif",
+                  "a": "Elephant"
+               },
+               {
+                  "q": " Who is smallest",
+                  "i": "assets/images/questions/sea-animals-shark.gif",
+                  "a": "Ant"
+               }
+            ]
+         }
+      ]
+   }
+]
