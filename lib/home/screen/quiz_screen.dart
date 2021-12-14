@@ -371,7 +371,6 @@ class _MyQuizState extends State<MyQuiz> {
       ]
     }
   ];
-  // var _categoryIdx = 0;
   int categoryIdx;
   var _questionIdx = 0;
   var _totalScore = 0;
@@ -381,19 +380,19 @@ class _MyQuizState extends State<MyQuiz> {
   List? questionList;
   var _isCorrect = false;
 
-  void _restartQuiz() {
-    setState(() {
-      _questionIdx = 0;
-      _totalScore = 0;
-    });
-  }
+  // void _restartQuiz() {
+  //   setState(() {
+  //     _questionIdx = 0;
+  //     _totalScore = 0;
+  //   });
+  // }
 
-  void _ansQuestion(int score) {
-    _totalScore += score;
-    setState(() {
-      _questionIdx += 1;
-    });
-  }
+  // void _ansQuestion(int score) {
+  //   _totalScore += score;
+  //   setState(() {
+  //     _questionIdx += 1;
+  //   });
+  // }
 
   void _nextQuestion() {
     if (_isCorrect == true) {
@@ -402,7 +401,6 @@ class _MyQuizState extends State<MyQuiz> {
         _correctPercent = _totalScore / questionList!.length;
       });
     }
-    questionList!.shuffle();
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
@@ -440,6 +438,7 @@ class _MyQuizState extends State<MyQuiz> {
                       _isOptionSelected = false;
                       // shuffleImageList();
                     });
+                    shuffleImageList();
                   },
                   child: Text(
                     "Continue",
@@ -454,24 +453,22 @@ class _MyQuizState extends State<MyQuiz> {
     );
   }
 
-  var currentQImg;
-  var randomQImg;
-  var imageList;
+  var imageList = [];
 
-  // void shuffleImageList() {
-  //   currentQImg = questionList![_questionIdx]["i"];
-  //   for (var i = 0; i < 3; i++) {
-  //     randomQImg.add(questionList![i]["i"]);
-  //   }
-  //   imageList = [...currentQImg, ...randomQImg];
-  //   imageList.shuffle();
-  // }
+  void shuffleImageList() {
+    var currentQImg = [];
+    var randomQImg = [];
+    currentQImg.add(questionList![_questionIdx]["i"]);
+    for (var i = 0; i < 3; i++) {
+      randomQImg.add(questionList![Random().nextInt(4)]["i"]);
+    }
+    imageList = [...currentQImg, ...randomQImg];
+  }
 
   @override
   void initState() {
     questionList = (_questions[categoryIdx] as dynamic)["set"][0]["items"];
-    // imageList = (_questions[categoryIdx] as dynamic)["set"][0]["items"];
-
+    shuffleImageList();
     super.initState();
   }
 
@@ -532,7 +529,7 @@ class _MyQuizState extends State<MyQuiz> {
                                       BlendMode.dstATop,
                                     )
                                   : null,
-                              image: AssetImage(questionList![index]["i"]),
+                              image: AssetImage(imageList[index]),
                               fit: BoxFit.contain,
                               alignment: Alignment.topCenter,
                             ),
@@ -542,8 +539,8 @@ class _MyQuizState extends State<MyQuiz> {
                               () {
                                 _selectedOptionIdx = index;
                                 _isOptionSelected = true;
-                                if (questionList![_selectedOptionIdx!]["id"] ==
-                                    questionList![_questionIdx]["id"]) {
+                                if (imageList[_selectedOptionIdx!] ==
+                                    questionList![_questionIdx]["i"]) {
                                   _isCorrect = true;
                                 } else {
                                   _isCorrect = false;
