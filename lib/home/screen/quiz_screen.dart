@@ -1,43 +1,338 @@
 import 'package:flutter/material.dart';
-import "../../models/quiz.dart";
-import "../../models/result.dart";
+import '../../widgets/quiz.dart';
+import '../../widgets/result.dart';
+import 'dart:math';
 
 class MyQuiz extends StatefulWidget {
+  var categoryIdx;
+
+  MyQuiz(this.categoryIdx);
+
   @override
-  State<MyQuiz> createState() => _MyQuizState();
+  State<MyQuiz> createState() => _MyQuizState(categoryIdx);
 }
 
 class _MyQuizState extends State<MyQuiz> {
+  _MyQuizState(this.categoryIdx);
   final _questions = [
     {
       "category": "Basic-1",
+      "image": "lesson_egg.png",
       "set": [
         {
           "level": "1",
           "items": [
             {
-              "q":
-                  "Who is king of jungle? Is there is any picture for the same?",
+              "id": 0,
+              "q": "Who is king of jungle?",
               "i": "assets/images/questions/icons8-lion.png",
               "a": "lion"
             },
             {
+              "id": 1,
               "q": "Who is fastest animal?",
               "i": "assets/images/questions/icons8-tiger.png",
               "a": "tiger"
             },
             {
+              "id": 2,
               "q": "Who can fly?",
               "i": "assets/images/questions/icons8-ostrich.png",
               "a": "Ostrich"
             },
             {
+              "id": 3,
               "q": "Who is biggest?",
               "i": "assets/images/questions/icons8-elephant.png",
               "a": "Elephant"
             },
             {
+              "id": 4,
               "q": "Who is smallest?",
+              "i": "assets/images/questions/icons8-ant.png",
+              "a": "Ant"
+            }
+          ]
+        },
+        {
+          "level": "2",
+          "items": [
+            {
+              "q": "Who is king of jungle",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "lion"
+            },
+            {
+              "q": "Who is fastes animal",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "tiger"
+            },
+            {
+              "q": "Who can fly",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "Ostrich"
+            },
+            {
+              "q": "Who is biggest",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "Elephant"
+            },
+            {
+              "q": "Who is smallest",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "Ant"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Phrases",
+      "image": "lesson_egg.png",
+      "set": [
+        {
+          "level": "1",
+          "items": [
+            {
+              "id": 0,
+              "q": "Phrase question 1?",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "lion"
+            },
+            {
+              "id": 1,
+              "q": "Phrase question 2?",
+              "i": "assets/images/questions/icons8-tiger.png",
+              "a": "tiger"
+            },
+            {
+              "id": 2,
+              "q": "Phrase question 3?",
+              "i": "assets/images/questions/icons8-ostrich.png",
+              "a": "Ostrich"
+            },
+            {
+              "id": 3,
+              "q": "Phrase question 4?",
+              "i": "assets/images/questions/icons8-elephant.png",
+              "a": "Elephant"
+            },
+            {
+              "id": 4,
+              "q": "Phrase question 5?",
+              "i": "assets/images/questions/icons8-ant.png",
+              "a": "Ant"
+            }
+          ]
+        },
+        {
+          "level": "2",
+          "items": [
+            {
+              "q": "Who is king of jungle",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "lion"
+            },
+            {
+              "q": "Who is fastes animal",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "tiger"
+            },
+            {
+              "q": "Who can fly",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "Ostrich"
+            },
+            {
+              "q": "Who is biggest",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "Elephant"
+            },
+            {
+              "q": "Who is smallest",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "Ant"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Travel",
+      "image": "lesson_egg.png",
+      "set": [
+        {
+          "level": "1",
+          "items": [
+            {
+              "id": 0,
+              "q": "Travel question 1?",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "lion"
+            },
+            {
+              "id": 1,
+              "q": "Travel question 2?",
+              "i": "assets/images/questions/icons8-tiger.png",
+              "a": "tiger"
+            },
+            {
+              "id": 2,
+              "q": "Travel question 3?",
+              "i": "assets/images/questions/icons8-ostrich.png",
+              "a": "Ostrich"
+            },
+            {
+              "id": 3,
+              "q": "Travel question 4?",
+              "i": "assets/images/questions/icons8-elephant.png",
+              "a": "Elephant"
+            },
+            {
+              "id": 4,
+              "q": "Travel question 5?",
+              "i": "assets/images/questions/icons8-ant.png",
+              "a": "Ant"
+            }
+          ]
+        },
+        {
+          "level": "2",
+          "items": [
+            {
+              "q": "Who is king of jungle",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "lion"
+            },
+            {
+              "q": "Who is fastes animal",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "tiger"
+            },
+            {
+              "q": "Who can fly",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "Ostrich"
+            },
+            {
+              "q": "Who is biggest",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "Elephant"
+            },
+            {
+              "q": "Who is smallest",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "Ant"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Food",
+      "image": "lesson_egg.png",
+      "set": [
+        {
+          "level": "1",
+          "items": [
+            {
+              "id": 0,
+              "q": "Food question 1?",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "lion"
+            },
+            {
+              "id": 1,
+              "q": "Food question 2?",
+              "i": "assets/images/questions/icons8-tiger.png",
+              "a": "tiger"
+            },
+            {
+              "id": 2,
+              "q": "Food question 3?",
+              "i": "assets/images/questions/icons8-ostrich.png",
+              "a": "Ostrich"
+            },
+            {
+              "id": 3,
+              "q": "Food question 4?",
+              "i": "assets/images/questions/icons8-elephant.png",
+              "a": "Elephant"
+            },
+            {
+              "id": 4,
+              "q": "Food question 5?",
+              "i": "assets/images/questions/icons8-ant.png",
+              "a": "Ant"
+            }
+          ]
+        },
+        {
+          "level": "2",
+          "items": [
+            {
+              "q": "Who is king of jungle",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "lion"
+            },
+            {
+              "q": "Who is fastes animal",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "tiger"
+            },
+            {
+              "q": "Who can fly",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "Ostrich"
+            },
+            {
+              "q": "Who is biggest",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "Elephant"
+            },
+            {
+              "q": "Who is smallest",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "Ant"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Family",
+      "image": "lesson_egg.png",
+      "set": [
+        {
+          "level": "1",
+          "items": [
+            {
+              "id": 0,
+              "q": "Family question 1?",
+              "i": "assets/images/questions/icons8-lion.png",
+              "a": "lion"
+            },
+            {
+              "id": 1,
+              "q": "Family question 2?",
+              "i": "assets/images/questions/icons8-tiger.png",
+              "a": "tiger"
+            },
+            {
+              "id": 2,
+              "q": "Family question 3?",
+              "i": "assets/images/questions/icons8-ostrich.png",
+              "a": "Ostrich"
+            },
+            {
+              "id": 3,
+              "q": "Family question 4?",
+              "i": "assets/images/questions/icons8-elephant.png",
+              "a": "Elephant"
+            },
+            {
+              "id": 4,
+              "q": "Family question 5?",
               "i": "assets/images/questions/icons8-ant.png",
               "a": "Ant"
             }
@@ -76,10 +371,15 @@ class _MyQuizState extends State<MyQuiz> {
       ]
     }
   ];
-  var _categoryIdx = 0;
-  var _setIdx = 0;
+  // var _categoryIdx = 0;
+  int categoryIdx;
   var _questionIdx = 0;
   var _totalScore = 0;
+  var _correctPercent = 0.0;
+  int? _selectedOptionIdx;
+  bool _isOptionSelected = false;
+  List? questionList;
+  var _isCorrect = false;
 
   void _restartQuiz() {
     setState(() {
@@ -96,6 +396,13 @@ class _MyQuizState extends State<MyQuiz> {
   }
 
   void _nextQuestion() {
+    if (_isCorrect == true) {
+      setState(() {
+        _totalScore += 1;
+        _correctPercent = _totalScore / questionList!.length;
+      });
+    }
+    questionList!.shuffle();
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
@@ -105,11 +412,17 @@ class _MyQuizState extends State<MyQuiz> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  'Correct',
-                  style: TextStyle(fontSize: 30, color: Colors.lightGreen),
-                ),
-                SizedBox(
+                _isCorrect
+                    ? const Text(
+                        'Correct',
+                        style:
+                            TextStyle(fontSize: 30, color: Colors.lightGreen),
+                      )
+                    : const Text(
+                        "Wrong",
+                        style: TextStyle(fontSize: 30, color: Colors.red),
+                      ),
+                const SizedBox(
                   height: 40,
                 ),
                 ElevatedButton(
@@ -119,7 +432,15 @@ class _MyQuizState extends State<MyQuiz> {
                           EdgeInsets.symmetric(vertical: 15, horizontal: 100),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50))),
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    setState(() {
+                      _questionIdx += 1;
+                      _selectedOptionIdx = null;
+                      _isOptionSelected = false;
+                      // shuffleImageList();
+                    });
+                  },
                   child: Text(
                     "Continue",
                     style: TextStyle(fontSize: 20),
@@ -131,15 +452,28 @@ class _MyQuizState extends State<MyQuiz> {
         );
       },
     );
-    setState(() {
-      _questionIdx += 1;
-      _selectedOptionIdx = null;
-      _isOptionSelected = false;
-    });
   }
 
-  int? _selectedOptionIdx;
-  bool _isOptionSelected = false;
+  var currentQImg;
+  var randomQImg;
+  var imageList;
+
+  // void shuffleImageList() {
+  //   currentQImg = questionList![_questionIdx]["i"];
+  //   for (var i = 0; i < 3; i++) {
+  //     randomQImg.add(questionList![i]["i"]);
+  //   }
+  //   imageList = [...currentQImg, ...randomQImg];
+  //   imageList.shuffle();
+  // }
+
+  @override
+  void initState() {
+    questionList = (_questions[categoryIdx] as dynamic)["set"][0]["items"];
+    // imageList = (_questions[categoryIdx] as dynamic)["set"][0]["items"];
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +487,7 @@ class _MyQuizState extends State<MyQuiz> {
             Icons.close,
             color: Colors.black,
           ),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.pop(context, _correctPercent),
         ),
         title: ClipRRect(
           clipBehavior: Clip.antiAlias,
@@ -162,91 +496,93 @@ class _MyQuizState extends State<MyQuiz> {
               backgroundColor: Colors.black12,
               minHeight: 15,
               valueColor: new AlwaysStoppedAnimation<Color>(Colors.lightGreen),
-              value: _questionIdx /
-                  (_questions[0] as dynamic)["set"][0]["items"].length),
+              value: _questionIdx / questionList!.length),
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 1,
-            child: _questionIdx <
-                    (_questions[0] as dynamic)["set"][0]["items"].length
-                ? Quiz(
-                    ansQuestion: _ansQuestion,
-                    questions: _questions,
-                    questionIdx: _questionIdx)
-                : Result(),
-          ),
-          Expanded(
-            flex: 3,
-            child: GridView.count(
-              scrollDirection: Axis.vertical,
-              crossAxisCount: 2,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
-              padding: const EdgeInsets.all(8),
-              children: List.generate(4, (index) {
-                return Card(
-                  clipBehavior: Clip.antiAlias,
-                  elevation: 6,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  child: InkWell(
-                    child: GridTile(
-                      child: Ink.image(
-                        colorFilter: _selectedOptionIdx == index
-                            ? ColorFilter.mode(
-                                Colors.white.withOpacity(0.8),
-                                BlendMode.dstATop,
-                              )
-                            : null,
-                        image: AssetImage((_questions[0] as dynamic)["set"][0]
-                            ["items"][index]["i"]),
-                        fit: BoxFit.contain,
-                        alignment: Alignment.topCenter,
-                      ),
-                    ),
-                    onTap: () {
-                      setState(
-                        () {
-                          _selectedOptionIdx = index;
-                          _isOptionSelected = true;
-                        },
-                      );
-                    },
-                  ),
-                  color: _selectedOptionIdx == index
-                      ? Colors.lightBlue
-                      : Colors.white70,
-                );
-              }),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+      body: _questionIdx < questionList!.length
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.lightGreen,
-                      padding:
-                          EdgeInsets.symmetric(vertical: 15, horizontal: 100),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50))),
-                  onPressed: _isOptionSelected ? _nextQuestion : null,
-                  child: Text(
-                    "Check",
-                    style: TextStyle(fontSize: 22),
+                Expanded(
+                  flex: 1,
+                  child: Quiz(
+                    questions: questionList![_questionIdx]["q"],
                   ),
                 ),
+                Expanded(
+                  flex: 3,
+                  child: GridView.count(
+                    scrollDirection: Axis.vertical,
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 8,
+                    padding: const EdgeInsets.all(8),
+                    children: List.generate(4, (index) {
+                      return Card(
+                        clipBehavior: Clip.antiAlias,
+                        elevation: 6,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: InkWell(
+                          child: GridTile(
+                            child: Ink.image(
+                              colorFilter: _selectedOptionIdx == index
+                                  ? ColorFilter.mode(
+                                      Colors.white.withOpacity(0.8),
+                                      BlendMode.dstATop,
+                                    )
+                                  : null,
+                              image: AssetImage(questionList![index]["i"]),
+                              fit: BoxFit.contain,
+                              alignment: Alignment.topCenter,
+                            ),
+                          ),
+                          onTap: () {
+                            setState(
+                              () {
+                                _selectedOptionIdx = index;
+                                _isOptionSelected = true;
+                                if (questionList![_selectedOptionIdx!]["id"] ==
+                                    questionList![_questionIdx]["id"]) {
+                                  _isCorrect = true;
+                                } else {
+                                  _isCorrect = false;
+                                }
+                              },
+                            );
+                          },
+                        ),
+                        color: _selectedOptionIdx == index
+                            ? Colors.lightBlue
+                            : Colors.white70,
+                      );
+                    }),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.lightGreen,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 100),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50))),
+                        onPressed: _isOptionSelected ? _nextQuestion : null,
+                        child: Text(
+                          "Check",
+                          style: TextStyle(fontSize: 22),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
               ],
-            ),
-          )
-        ],
-      ),
+            )
+          : Result(_totalScore, questionList!.length),
     );
   }
 }

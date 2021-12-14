@@ -1,12 +1,19 @@
-import 'dart:math';
 import 'package:duolingo_app/home/screen/quiz_screen.dart';
 import 'package:flutter/material.dart';
 
-class CircleAvatarIndicator extends StatelessWidget {
+class CircleAvatarIndicator extends StatefulWidget {
   final Color _backgroundColor;
   final String _img;
+  final int categoryIdx;
 
-  const CircleAvatarIndicator(this._backgroundColor, this._img);
+  CircleAvatarIndicator(this.categoryIdx, this._backgroundColor, this._img);
+
+  @override
+  State<CircleAvatarIndicator> createState() => _CircleAvatarIndicatorState();
+}
+
+class _CircleAvatarIndicatorState extends State<CircleAvatarIndicator> {
+  var indicatorValue = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +30,7 @@ class CircleAvatarIndicator extends StatelessWidget {
                   height: 115,
                   child: CircularProgressIndicator(
                     strokeWidth: 8,
-                    value: Random().nextDouble(),
+                    value: indicatorValue,
                     color: Colors.amber,
                   ),
                 ),
@@ -31,21 +38,18 @@ class CircleAvatarIndicator extends StatelessWidget {
               Center(
                 child: Ink(
                   decoration: BoxDecoration(
-                      color: _backgroundColor,
+                      color: widget._backgroundColor,
                       borderRadius: BorderRadius.circular(50)),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(50),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MyQuiz()),
-                      );
+                      _navigateToQuiz(context);
                     },
                     child: CircleAvatar(
                       backgroundColor: Colors.transparent,
                       radius: 48,
                       child: Image.asset(
-                        _img,
+                        widget._img,
                         height: 50,
                       ),
                     ),
@@ -57,5 +61,15 @@ class CircleAvatarIndicator extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _navigateToQuiz(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MyQuiz(widget.categoryIdx)),
+    );
+    setState(() {
+      indicatorValue = result;
+    });
   }
 }

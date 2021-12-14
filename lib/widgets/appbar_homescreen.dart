@@ -4,7 +4,6 @@ class AppBarHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
       elevation: 5,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -9,6 +9,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // double cat1Score = 0;
+  // double cat2Score = 0;
+  // double cat3Score = 0;
+  // double cat4Score = 0;
+  // double cat5Score = 0;
   Text _textCirle(String text) => Text(
         text,
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -23,8 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(height: 38),
           Column(
             children: <Widget>[
-              const CircleAvatarIndicator(
-                  Colors.amber, "assets/images/home_screen/lesson_egg.png"),
+              CircleAvatarIndicator(
+                  0, Colors.amber, "assets/images/home_screen/lesson_egg.png"),
               const SizedBox(height: 10),
               _textCirle("Basics 1"),
               const SizedBox(height: 30),
@@ -33,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      const CircleAvatarIndicator(Color(0xFF55acf3),
+                      CircleAvatarIndicator(1, Color(0xFF55acf3),
                           "assets/images/home_screen/lesson_dialog.png"),
                       const SizedBox(height: 10),
                       _textCirle("Phrases"),
@@ -42,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(width: 33),
                   Column(
                     children: <Widget>[
-                      const CircleAvatarIndicator(Color(0xFF55acf3),
+                      CircleAvatarIndicator(2, Color(0xFF55acf3),
                           "assets/images/home_screen/lesson_airplane.png"),
                       const SizedBox(height: 10),
                       _textCirle("Travel"),
@@ -56,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      const CircleAvatarIndicator(Color(0xFF55acf3),
+                      CircleAvatarIndicator(3, Color(0xFF55acf3),
                           "assets/images/home_screen/lesson_hamburger.png"),
                       const SizedBox(height: 10),
                       _textCirle("Food"),
@@ -65,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(width: 33),
                   Column(
                     children: <Widget>[
-                      const CircleAvatarIndicator(Color(0xFF55acf3),
+                      CircleAvatarIndicator(4, Color(0xFF55acf3),
                           "assets/images/home_screen/lesson_baby.png"),
                       const SizedBox(height: 10),
                       _textCirle("Family"),

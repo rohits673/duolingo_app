@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 
 class Result extends StatelessWidget {
-  // final int resultScore;
+  final int resultScore;
   // final void Function() restartQuiz;
-  // Result(this.resultScore, this.restartQuiz);
+  final int totalMarks;
+  Result(this.resultScore, this.totalMarks);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("Result"),
+        child: Text(
+          "Your Score is $resultScore / $totalMarks",
+          style: TextStyle(fontSize: 25),
+        ),
       ),
     );
   }

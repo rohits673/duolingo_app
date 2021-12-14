@@ -57,21 +57,22 @@ class _HomeState extends State<Home> {
           });
         },
         items: [
-          bottomNavbarItem(Images.tabLearn, Images.activeLearn),
-          bottomNavbarItem(Images.tabStories, Images.activeStories),
-          bottomNavbarItem(Images.tabProfile, Images.activeProfile),
-          bottomNavbarItem(Images.tabChat, Images.activeChat),
-          bottomNavbarItem(Images.tabStore, Images.activeStore),
+          bottomNavbarItem(Images.tabLearn, Images.activeLearn, "Home"),
+          bottomNavbarItem(Images.tabProfile, Images.activeProfile, "Profile"),
+          // bottomNavbarItem(Images.tabStories, Images.activeStories),
+          // bottomNavbarItem(Images.tabChat, Images.activeChat),
+          // bottomNavbarItem(Images.tabStore, Images.activeStore),
         ],
       ),
     );
   }
 }
 
-BottomNavigationBarItem bottomNavbarItem(Widget image, Widget activeImage) {
+BottomNavigationBarItem bottomNavbarItem(
+    Widget image, Widget activeImage, String label) {
   return BottomNavigationBarItem(
     icon: image,
-    label: "",
+    label: label,
     activeIcon: activeImage,
   );
 }
