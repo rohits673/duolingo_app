@@ -380,20 +380,6 @@ class _MyQuizState extends State<MyQuiz> {
   List? questionList;
   var _isCorrect = false;
 
-  // void _restartQuiz() {
-  //   setState(() {
-  //     _questionIdx = 0;
-  //     _totalScore = 0;
-  //   });
-  // }
-
-  // void _ansQuestion(int score) {
-  //   _totalScore += score;
-  //   setState(() {
-  //     _questionIdx += 1;
-  //   });
-  // }
-
   void _nextQuestion() {
     if (_isCorrect == true) {
       setState(() {
@@ -453,16 +439,16 @@ class _MyQuizState extends State<MyQuiz> {
     );
   }
 
-  var imageList = [];
+  List<String> imageList = [];
 
   void shuffleImageList() {
-    var currentQImg = [];
-    var randomQImg = [];
-    currentQImg.add(questionList![_questionIdx]["i"]);
-    for (var i = 0; i < 3; i++) {
-      randomQImg.add(questionList![Random().nextInt(4)]["i"]);
+    Set<String> randomQImg = {questionList![_questionIdx]["i"]};
+    while (randomQImg.length < 4) {
+      randomQImg
+          .add(questionList![Random().nextInt(questionList!.length)]["i"]);
     }
-    imageList = [...currentQImg, ...randomQImg];
+    imageList = [...randomQImg];
+    imageList.shuffle();
   }
 
   @override
