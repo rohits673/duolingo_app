@@ -65,7 +65,7 @@ class _MyQuizState extends State<MyQuiz> {
           ]
         },
         {
-          "level": "1",
+          "level": "2",
           "items": [
             {
               "q": "Who is king of jungle?",
@@ -427,14 +427,19 @@ class _MyQuizState extends State<MyQuiz> {
   int? _selectedOptionIdx;
   bool _isOptionSelected = false;
   List? questionList;
+  int? qListLength;
   var _isCorrect = false;
+  List imageList = [];
+  final player = new AudioCache();
 
   void _nextQuestion() {
     if (_isCorrect == true) {
       setState(() {
         _totalScore += 1;
-        _correctPercent = _totalScore / questionList!.length;
+        _correctPercent = _totalScore / qListLength!;
       });
+    } else {
+      questionList!.add(questionList![_questionIdx]);
     }
     showModalBottomSheet<void>(
       context: context,
@@ -473,7 +478,10 @@ class _MyQuizState extends State<MyQuiz> {
                       _isOptionSelected = false;
                       // shuffleImageList();
                     });
-                    if (_questionIdx < questionList!.length) shuffleImageList();
+                    if (_questionIdx < questionList!.length) {
+                      shuffleImageList();
+                      // questionList!.shuffle();
+                    }
                   },
                   child: Text(
                     "Continue",
@@ -488,8 +496,6 @@ class _MyQuizState extends State<MyQuiz> {
     );
   }
 
-  List imageList = [];
-
   void shuffleImageList() {
     Set randomQImg = {questionList![_questionIdx]["i"]};
     while (randomQImg.length < 4) {
@@ -500,15 +506,13 @@ class _MyQuizState extends State<MyQuiz> {
     imageList.shuffle();
   }
 
-  final player = new AudioCache();
-  var audioPath = "sounds/tiger-sound.mp3";
-
   @override
   void initState() {
     questionList =
         (_questions[widget.categoryIdx] as dynamic)["set"][0]["items"];
     shuffleImageList();
     super.initState();
+    qListLength = questionList!.length;
   }
 
   @override
@@ -619,7 +623,7 @@ class _MyQuizState extends State<MyQuiz> {
                 )
               ],
             )
-          : Result(_totalScore, questionList!.length),
+          : Result(_totalScore, qListLength!),
     );
   }
 }
