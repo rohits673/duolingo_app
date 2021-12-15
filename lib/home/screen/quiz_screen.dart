@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
 import '../../widgets/quiz.dart';
 import '../../widgets/result.dart';
 import 'dart:math';
 
 class MyQuiz extends StatefulWidget {
-  var categoryIdx;
+  int categoryIdx;
 
   MyQuiz(this.categoryIdx);
 
   @override
-  State<MyQuiz> createState() => _MyQuizState(categoryIdx);
+  State<MyQuiz> createState() => _MyQuizState();
 }
 
 class _MyQuizState extends State<MyQuiz> {
-  _MyQuizState(this.categoryIdx);
   final _questions = [
     {
       "category": "Basic-1",
@@ -23,67 +23,92 @@ class _MyQuizState extends State<MyQuiz> {
           "level": "1",
           "items": [
             {
-              "id": 0,
               "q": "Who is king of jungle?",
-              "i": "assets/images/questions/icons8-lion.png",
+              "i": [
+                "assets/images/questions/icons8-lion.png",
+                "sounds/lion-sound.mp3"
+              ],
               "a": "lion"
             },
             {
-              "id": 1,
               "q": "Who is fastest animal?",
-              "i": "assets/images/questions/icons8-tiger.png",
+              "i": [
+                "assets/images/questions/icons8-tiger.png",
+                "sounds/tiger-sound.mp3"
+              ],
               "a": "tiger"
             },
             {
-              "id": 2,
               "q": "Who can fly?",
-              "i": "assets/images/questions/icons8-ostrich.png",
+              "i": [
+                "assets/images/questions/icons8-ostrich.png",
+                "sounds/ostrich-sound.mp3"
+              ],
               "a": "Ostrich"
             },
             {
-              "id": 3,
               "q": "Who is biggest?",
-              "i": "assets/images/questions/icons8-elephant.png",
+              "i": [
+                "assets/images/questions/icons8-elephant.png",
+                "sounds/elephant-sound.mp3"
+              ],
               "a": "Elephant"
             },
             {
-              "id": 4,
               "q": "Who is smallest?",
-              "i": "assets/images/questions/icons8-ant.png",
+              "i": [
+                "assets/images/questions/icons8-ant.png",
+                "sounds/ant-sound.mp3"
+              ],
               "a": "Ant"
             }
           ]
         },
         {
-          "level": "2",
+          "level": "1",
           "items": [
             {
-              "q": "Who is king of jungle",
-              "i": "assets/images/questions/icons8-lion.png",
+              "q": "Who is king of jungle?",
+              "i": [
+                "assets/images/questions/icons8-lion.png",
+                "sounds/lion-sound.mp3"
+              ],
               "a": "lion"
             },
             {
-              "q": "Who is fastes animal",
-              "i": "assets/images/questions/icons8-lion.png",
+              "q": "Who is fastest animal?",
+              "i": [
+                "assets/images/questions/icons8-tiger.png",
+                "sounds/tiger-sound.mp3"
+              ],
               "a": "tiger"
             },
             {
-              "q": "Who can fly",
-              "i": "assets/images/questions/icons8-lion.png",
+              "q": "Who can fly?",
+              "i": [
+                "assets/images/questions/icons8-ostrich.png",
+                "sounds/ostrich-sound.mp3"
+              ],
               "a": "Ostrich"
             },
             {
-              "q": "Who is biggest",
-              "i": "assets/images/questions/icons8-lion.png",
+              "q": "Who is biggest?",
+              "i": [
+                "assets/images/questions/icons8-elephant.png",
+                "sounds/elephant-sound.mp3"
+              ],
               "a": "Elephant"
             },
             {
-              "q": "Who is smallest",
-              "i": "assets/images/questions/icons8-lion.png",
+              "q": "Who is smallest?",
+              "i": [
+                "assets/images/questions/icons8-ant.png",
+                "sounds/ant-sound.mp3"
+              ],
               "a": "Ant"
             }
           ]
-        }
+        },
       ]
     },
     {
@@ -96,31 +121,46 @@ class _MyQuizState extends State<MyQuiz> {
             {
               "id": 0,
               "q": "Phrase question 1?",
-              "i": "assets/images/questions/icons8-lion.png",
+              "i": [
+                "assets/images/questions/icons8-lion.png",
+                "sounds/lion-sound.mp3"
+              ],
               "a": "lion"
             },
             {
               "id": 1,
               "q": "Phrase question 2?",
-              "i": "assets/images/questions/icons8-tiger.png",
+              "i": [
+                "assets/images/questions/icons8-tiger.png",
+                "sounds/tiger-sound.mp3"
+              ],
               "a": "tiger"
             },
             {
               "id": 2,
               "q": "Phrase question 3?",
-              "i": "assets/images/questions/icons8-ostrich.png",
+              "i": [
+                "assets/images/questions/icons8-ostrich.png",
+                "sounds/ostrich-sound.mp3"
+              ],
               "a": "Ostrich"
             },
             {
               "id": 3,
               "q": "Phrase question 4?",
-              "i": "assets/images/questions/icons8-elephant.png",
+              "i": [
+                "assets/images/questions/icons8-elephant.png",
+                "sounds/elephant-sound.mp3"
+              ],
               "a": "Elephant"
             },
             {
               "id": 4,
               "q": "Phrase question 5?",
-              "i": "assets/images/questions/icons8-ant.png",
+              "i": [
+                "assets/images/questions/icons8-ant.png",
+                "sounds/ant-sound.mp3"
+              ],
               "a": "Ant"
             }
           ]
@@ -165,33 +205,43 @@ class _MyQuizState extends State<MyQuiz> {
           "level": "1",
           "items": [
             {
-              "id": 0,
               "q": "Travel question 1?",
-              "i": "assets/images/questions/icons8-lion.png",
+              "i": [
+                "assets/images/questions/icons8-lion.png",
+                "sounds/lion-sound.mp3"
+              ],
               "a": "lion"
             },
             {
-              "id": 1,
               "q": "Travel question 2?",
-              "i": "assets/images/questions/icons8-tiger.png",
+              "i": [
+                "assets/images/questions/icons8-lion.png",
+                "sounds/tiger-sound.mp3"
+              ],
               "a": "tiger"
             },
             {
-              "id": 2,
               "q": "Travel question 3?",
-              "i": "assets/images/questions/icons8-ostrich.png",
+              "i": [
+                "assets/images/questions/icons8-lion.png",
+                "sounds/ostrich-sound.mp3"
+              ],
               "a": "Ostrich"
             },
             {
-              "id": 3,
               "q": "Travel question 4?",
-              "i": "assets/images/questions/icons8-elephant.png",
+              "i": [
+                "assets/images/questions/icons8-lion.png",
+                "sounds/elephant-sound.mp3"
+              ],
               "a": "Elephant"
             },
             {
-              "id": 4,
               "q": "Travel question 5?",
-              "i": "assets/images/questions/icons8-ant.png",
+              "i": [
+                "assets/images/questions/icons8-lion.png",
+                "sounds/ant-sound.mp3"
+              ],
               "a": "Ant"
             }
           ]
@@ -371,7 +421,6 @@ class _MyQuizState extends State<MyQuiz> {
       ]
     }
   ];
-  int categoryIdx;
   var _questionIdx = 0;
   var _totalScore = 0;
   var _correctPercent = 0.0;
@@ -424,7 +473,7 @@ class _MyQuizState extends State<MyQuiz> {
                       _isOptionSelected = false;
                       // shuffleImageList();
                     });
-                    shuffleImageList();
+                    if (_questionIdx < questionList!.length) shuffleImageList();
                   },
                   child: Text(
                     "Continue",
@@ -439,10 +488,10 @@ class _MyQuizState extends State<MyQuiz> {
     );
   }
 
-  List<String> imageList = [];
+  List imageList = [];
 
   void shuffleImageList() {
-    Set<String> randomQImg = {questionList![_questionIdx]["i"]};
+    Set randomQImg = {questionList![_questionIdx]["i"]};
     while (randomQImg.length < 4) {
       randomQImg
           .add(questionList![Random().nextInt(questionList!.length)]["i"]);
@@ -451,9 +500,13 @@ class _MyQuizState extends State<MyQuiz> {
     imageList.shuffle();
   }
 
+  final player = new AudioCache();
+  var audioPath = "sounds/tiger-sound.mp3";
+
   @override
   void initState() {
-    questionList = (_questions[categoryIdx] as dynamic)["set"][0]["items"];
+    questionList =
+        (_questions[widget.categoryIdx] as dynamic)["set"][0]["items"];
     shuffleImageList();
     super.initState();
   }
@@ -515,7 +568,7 @@ class _MyQuizState extends State<MyQuiz> {
                                       BlendMode.dstATop,
                                     )
                                   : null,
-                              image: AssetImage(imageList[index]),
+                              image: AssetImage(imageList[index][0]),
                               fit: BoxFit.contain,
                               alignment: Alignment.topCenter,
                             ),
@@ -525,6 +578,7 @@ class _MyQuizState extends State<MyQuiz> {
                               () {
                                 _selectedOptionIdx = index;
                                 _isOptionSelected = true;
+                                player.play(imageList[index][1]);
                                 if (imageList[_selectedOptionIdx!] ==
                                     questionList![_questionIdx]["i"]) {
                                   _isCorrect = true;

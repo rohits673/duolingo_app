@@ -1,4 +1,5 @@
 import 'package:duolingo_app/home/screen/quiz_screen.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
 class CircleAvatarIndicator extends StatefulWidget {
@@ -13,7 +14,27 @@ class CircleAvatarIndicator extends StatefulWidget {
 }
 
 class _CircleAvatarIndicatorState extends State<CircleAvatarIndicator> {
-  var indicatorValue = 0.0;
+  double indicatorValue = 0.0;
+
+  // addIndicatorValueToLocal() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     prefs.setDouble('localIndicatorValue', indicatorValue);
+  //   });
+  // }
+
+  // getIndicatorValue() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     indicatorValue = prefs.getDouble('localIndicatorValue') ?? 0.0;
+  //   });
+  // }
+
+  // @override
+  // void initState() {
+  //   // getIndicatorValue();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +90,8 @@ class _CircleAvatarIndicatorState extends State<CircleAvatarIndicator> {
       MaterialPageRoute(builder: (context) => MyQuiz(widget.categoryIdx)),
     );
     setState(() {
-      indicatorValue = result;
+      if (indicatorValue < result) indicatorValue = result;
     });
+    // addIndicatorValueToLocal();
   }
 }

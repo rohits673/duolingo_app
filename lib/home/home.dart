@@ -21,48 +21,69 @@ class _HomeState extends State<Home> {
     HomeScreen(
       key: PageStorageKey('Page1'),
     ),
-    StoriesScreen(
-      key: PageStorageKey('Page2'),
-    ),
     ProfileScreen(
-      key: PageStorageKey('Page3'),
-    ),
-    SocialScreen(
-      key: PageStorageKey('Page4'),
-    ),
-    StoreScreen(
-      key: PageStorageKey('Page5'),
+      key: PageStorageKey('Page2'),
     ),
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
 
+  ThemeData _darkTheme = ThemeData(
+    brightness: Brightness.dark,
+    primarySwatch: Colors.amber,
+  );
+
+  ThemeData _lightTheme = ThemeData(
+    brightness: Brightness.light,
+    primarySwatch: Colors.blue,
+  );
+
+  bool _light = true;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: AppBarHomeScreen(),
-      ),
-      body: PageStorage(
-        bucket: bucket,
-        child: screens[_selectedIndex],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        items: [
-          bottomNavbarItem(Images.tabLearn, Images.activeLearn, "Home"),
-          bottomNavbarItem(Images.tabProfile, Images.activeProfile, "Profile"),
-          // bottomNavbarItem(Images.tabStories, Images.activeStories),
-          // bottomNavbarItem(Images.tabChat, Images.activeChat),
-          // bottomNavbarItem(Images.tabStore, Images.activeStore),
-        ],
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: _light ? _lightTheme : _darkTheme,
+      home: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: AppBarHomeScreen(_light),
+        ),
+        body: PageStorage(
+          bucket: bucket,
+          child: screens[_selectedIndex],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              _light = !_light;
+            });
+          },
+          backgroundColor: _light ? Colors.black : Colors.white,
+          child: _light
+              ? Icon(Icons.dark_mode)
+              : Icon(
+                  Icons.light_mode,
+                  color: Colors.black,
+                ),
+        ),
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.miniCenterDocked,
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _selectedIndex,
+          onTap: (index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+          items: [
+            bottomNavbarItem(Images.tabLearn, Images.activeLearn, "Home"),
+            bottomNavbarItem(
+                Images.tabProfile, Images.activeProfile, "Profile"),
+          ],
+        ),
       ),
     );
   }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 class AppBarHomeScreen extends StatelessWidget {
+  bool isLight;
+  AppBarHomeScreen(this.isLight);
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: isLight ? Colors.white : Colors.black,
       elevation: 5,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
