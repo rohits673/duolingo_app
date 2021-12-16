@@ -6,12 +6,9 @@ class Questions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(14),
-      child: Text(
-        questionText,
-        style: TextStyle(fontSize: 25),
-      ),
+    return Text(
+      questionText,
+      style: TextStyle(fontSize: 25),
     );
   }
 }

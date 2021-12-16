@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import '../../widgets/quiz.dart';
 import '../../widgets/result.dart';
+import '../../utils/questions_list.dart';
 import 'dart:math';
 
 class MyQuiz extends StatefulWidget {
@@ -14,423 +16,26 @@ class MyQuiz extends StatefulWidget {
 }
 
 class _MyQuizState extends State<MyQuiz> {
-  final _questions = [
-    {
-      "category": "Basic-1",
-      "image": "lesson_egg.png",
-      "set": [
-        {
-          "level": "1",
-          "items": [
-            {
-              "q": "Who is king of jungle?",
-              "i": [
-                "assets/images/questions/icons8-lion.png",
-                "sounds/lion-sound.mp3"
-              ],
-              "a": "lion"
-            },
-            {
-              "q": "Who is fastest animal?",
-              "i": [
-                "assets/images/questions/icons8-tiger.png",
-                "sounds/tiger-sound.mp3"
-              ],
-              "a": "tiger"
-            },
-            {
-              "q": "Who can fly?",
-              "i": [
-                "assets/images/questions/icons8-ostrich.png",
-                "sounds/ostrich-sound.mp3"
-              ],
-              "a": "Ostrich"
-            },
-            {
-              "q": "Who is biggest?",
-              "i": [
-                "assets/images/questions/icons8-elephant.png",
-                "sounds/elephant-sound.mp3"
-              ],
-              "a": "Elephant"
-            },
-            {
-              "q": "Who is smallest?",
-              "i": [
-                "assets/images/questions/icons8-ant.png",
-                "sounds/ant-sound.mp3"
-              ],
-              "a": "Ant"
-            }
-          ]
-        },
-        {
-          "level": "2",
-          "items": [
-            {
-              "q": "Who is king of jungle?",
-              "i": [
-                "assets/images/questions/icons8-lion.png",
-                "sounds/lion-sound.mp3"
-              ],
-              "a": "lion"
-            },
-            {
-              "q": "Who is fastest animal?",
-              "i": [
-                "assets/images/questions/icons8-tiger.png",
-                "sounds/tiger-sound.mp3"
-              ],
-              "a": "tiger"
-            },
-            {
-              "q": "Who can fly?",
-              "i": [
-                "assets/images/questions/icons8-ostrich.png",
-                "sounds/ostrich-sound.mp3"
-              ],
-              "a": "Ostrich"
-            },
-            {
-              "q": "Who is biggest?",
-              "i": [
-                "assets/images/questions/icons8-elephant.png",
-                "sounds/elephant-sound.mp3"
-              ],
-              "a": "Elephant"
-            },
-            {
-              "q": "Who is smallest?",
-              "i": [
-                "assets/images/questions/icons8-ant.png",
-                "sounds/ant-sound.mp3"
-              ],
-              "a": "Ant"
-            }
-          ]
-        },
-      ]
-    },
-    {
-      "category": "Phrases",
-      "image": "lesson_egg.png",
-      "set": [
-        {
-          "level": "1",
-          "items": [
-            {
-              "id": 0,
-              "q": "Phrase question 1?",
-              "i": [
-                "assets/images/questions/icons8-lion.png",
-                "sounds/lion-sound.mp3"
-              ],
-              "a": "lion"
-            },
-            {
-              "id": 1,
-              "q": "Phrase question 2?",
-              "i": [
-                "assets/images/questions/icons8-tiger.png",
-                "sounds/tiger-sound.mp3"
-              ],
-              "a": "tiger"
-            },
-            {
-              "id": 2,
-              "q": "Phrase question 3?",
-              "i": [
-                "assets/images/questions/icons8-ostrich.png",
-                "sounds/ostrich-sound.mp3"
-              ],
-              "a": "Ostrich"
-            },
-            {
-              "id": 3,
-              "q": "Phrase question 4?",
-              "i": [
-                "assets/images/questions/icons8-elephant.png",
-                "sounds/elephant-sound.mp3"
-              ],
-              "a": "Elephant"
-            },
-            {
-              "id": 4,
-              "q": "Phrase question 5?",
-              "i": [
-                "assets/images/questions/icons8-ant.png",
-                "sounds/ant-sound.mp3"
-              ],
-              "a": "Ant"
-            }
-          ]
-        },
-        {
-          "level": "2",
-          "items": [
-            {
-              "q": "Who is king of jungle",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "lion"
-            },
-            {
-              "q": "Who is fastes animal",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "tiger"
-            },
-            {
-              "q": "Who can fly",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "Ostrich"
-            },
-            {
-              "q": "Who is biggest",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "Elephant"
-            },
-            {
-              "q": "Who is smallest",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "Ant"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "category": "Travel",
-      "image": "lesson_egg.png",
-      "set": [
-        {
-          "level": "1",
-          "items": [
-            {
-              "q": "Travel question 1?",
-              "i": [
-                "assets/images/questions/icons8-lion.png",
-                "sounds/lion-sound.mp3"
-              ],
-              "a": "lion"
-            },
-            {
-              "q": "Travel question 2?",
-              "i": [
-                "assets/images/questions/icons8-lion.png",
-                "sounds/tiger-sound.mp3"
-              ],
-              "a": "tiger"
-            },
-            {
-              "q": "Travel question 3?",
-              "i": [
-                "assets/images/questions/icons8-lion.png",
-                "sounds/ostrich-sound.mp3"
-              ],
-              "a": "Ostrich"
-            },
-            {
-              "q": "Travel question 4?",
-              "i": [
-                "assets/images/questions/icons8-lion.png",
-                "sounds/elephant-sound.mp3"
-              ],
-              "a": "Elephant"
-            },
-            {
-              "q": "Travel question 5?",
-              "i": [
-                "assets/images/questions/icons8-lion.png",
-                "sounds/ant-sound.mp3"
-              ],
-              "a": "Ant"
-            }
-          ]
-        },
-        {
-          "level": "2",
-          "items": [
-            {
-              "q": "Who is king of jungle",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "lion"
-            },
-            {
-              "q": "Who is fastes animal",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "tiger"
-            },
-            {
-              "q": "Who can fly",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "Ostrich"
-            },
-            {
-              "q": "Who is biggest",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "Elephant"
-            },
-            {
-              "q": "Who is smallest",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "Ant"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "category": "Food",
-      "image": "lesson_egg.png",
-      "set": [
-        {
-          "level": "1",
-          "items": [
-            {
-              "id": 0,
-              "q": "Food question 1?",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "lion"
-            },
-            {
-              "id": 1,
-              "q": "Food question 2?",
-              "i": "assets/images/questions/icons8-tiger.png",
-              "a": "tiger"
-            },
-            {
-              "id": 2,
-              "q": "Food question 3?",
-              "i": "assets/images/questions/icons8-ostrich.png",
-              "a": "Ostrich"
-            },
-            {
-              "id": 3,
-              "q": "Food question 4?",
-              "i": "assets/images/questions/icons8-elephant.png",
-              "a": "Elephant"
-            },
-            {
-              "id": 4,
-              "q": "Food question 5?",
-              "i": "assets/images/questions/icons8-ant.png",
-              "a": "Ant"
-            }
-          ]
-        },
-        {
-          "level": "2",
-          "items": [
-            {
-              "q": "Who is king of jungle",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "lion"
-            },
-            {
-              "q": "Who is fastes animal",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "tiger"
-            },
-            {
-              "q": "Who can fly",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "Ostrich"
-            },
-            {
-              "q": "Who is biggest",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "Elephant"
-            },
-            {
-              "q": "Who is smallest",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "Ant"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "category": "Family",
-      "image": "lesson_egg.png",
-      "set": [
-        {
-          "level": "1",
-          "items": [
-            {
-              "id": 0,
-              "q": "Family question 1?",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "lion"
-            },
-            {
-              "id": 1,
-              "q": "Family question 2?",
-              "i": "assets/images/questions/icons8-tiger.png",
-              "a": "tiger"
-            },
-            {
-              "id": 2,
-              "q": "Family question 3?",
-              "i": "assets/images/questions/icons8-ostrich.png",
-              "a": "Ostrich"
-            },
-            {
-              "id": 3,
-              "q": "Family question 4?",
-              "i": "assets/images/questions/icons8-elephant.png",
-              "a": "Elephant"
-            },
-            {
-              "id": 4,
-              "q": "Family question 5?",
-              "i": "assets/images/questions/icons8-ant.png",
-              "a": "Ant"
-            }
-          ]
-        },
-        {
-          "level": "2",
-          "items": [
-            {
-              "q": "Who is king of jungle",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "lion"
-            },
-            {
-              "q": "Who is fastes animal",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "tiger"
-            },
-            {
-              "q": "Who can fly",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "Ostrich"
-            },
-            {
-              "q": "Who is biggest",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "Elephant"
-            },
-            {
-              "q": "Who is smallest",
-              "i": "assets/images/questions/icons8-lion.png",
-              "a": "Ant"
-            }
-          ]
-        }
-      ]
-    }
-  ];
   var _questionIdx = 0;
+  var _levelIdx = 0;
   var _totalScore = 0;
   var _correctPercent = 0.0;
   int? _selectedOptionIdx;
   bool _isOptionSelected = false;
+  late List _questions;
   List? questionList;
   int? qListLength;
   var _isCorrect = false;
   List imageList = [];
-  final player = new AudioCache();
+
+  final FlutterTts tts = FlutterTts();
+  final TextEditingController controller =
+      TextEditingController(text: 'Hello world');
+
+  Home() {
+    tts.setLanguage('en');
+    tts.setSpeechRate(0.4);
+  }
 
   void _nextQuestion() {
     if (_isCorrect == true) {
@@ -506,12 +111,17 @@ class _MyQuizState extends State<MyQuiz> {
     imageList.shuffle();
   }
 
+  bool darkModeOn = false;
   @override
   void initState() {
+    var brightness = SchedulerBinding.instance?.window.platformBrightness;
+    darkModeOn = brightness == Brightness.dark;
+    _questions = QuestionList.getQuestionList();
     questionList =
-        (_questions[widget.categoryIdx] as dynamic)["set"][0]["items"];
+        (_questions[widget.categoryIdx] as dynamic)["set"][_levelIdx]["items"];
     shuffleImageList();
     super.initState();
+
     qListLength = questionList!.length;
   }
 
@@ -525,7 +135,7 @@ class _MyQuizState extends State<MyQuiz> {
         leading: new IconButton(
           icon: new Icon(
             Icons.close,
-            color: Colors.black,
+            color: Colors.blueGrey,
           ),
           onPressed: () => Navigator.pop(context, _correctPercent),
         ),
@@ -533,7 +143,7 @@ class _MyQuizState extends State<MyQuiz> {
           clipBehavior: Clip.antiAlias,
           borderRadius: BorderRadius.circular(20),
           child: LinearProgressIndicator(
-              backgroundColor: Colors.black12,
+              backgroundColor: Colors.blueGrey,
               minHeight: 15,
               valueColor: new AlwaysStoppedAnimation<Color>(Colors.lightGreen),
               value: _questionIdx / questionList!.length),
@@ -545,8 +155,18 @@ class _MyQuizState extends State<MyQuiz> {
               children: [
                 Expanded(
                   flex: 1,
-                  child: Quiz(
-                    questions: questionList![_questionIdx]["q"],
+                  child: Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          tts.speak(questionList![_questionIdx]["q"]);
+                        },
+                        icon: Icon(Icons.surround_sound),
+                      ),
+                      Quiz(
+                        questions: questionList![_questionIdx]["q"],
+                      ),
+                    ],
                   ),
                 ),
                 Expanded(
@@ -565,24 +185,30 @@ class _MyQuizState extends State<MyQuiz> {
                             borderRadius: BorderRadius.circular(20)),
                         child: InkWell(
                           child: GridTile(
-                            child: Ink.image(
-                              colorFilter: _selectedOptionIdx == index
-                                  ? ColorFilter.mode(
-                                      Colors.white.withOpacity(0.8),
-                                      BlendMode.dstATop,
-                                    )
-                                  : null,
-                              image: AssetImage(imageList[index][0]),
-                              fit: BoxFit.contain,
-                              alignment: Alignment.topCenter,
-                            ),
+                            child: imageList[index][0] == ""
+                                ? Center(
+                                    child: Text(
+                                    imageList[index][1],
+                                    style: TextStyle(fontSize: 25),
+                                  ))
+                                : Ink.image(
+                                    colorFilter: _selectedOptionIdx == index
+                                        ? ColorFilter.mode(
+                                            Colors.white.withOpacity(0.8),
+                                            BlendMode.dstATop,
+                                          )
+                                        : null,
+                                    image: AssetImage(imageList[index][0]),
+                                    fit: BoxFit.contain,
+                                    alignment: Alignment.topCenter,
+                                  ),
                           ),
                           onTap: () {
                             setState(
                               () {
                                 _selectedOptionIdx = index;
                                 _isOptionSelected = true;
-                                player.play(imageList[index][1]);
+                                tts.speak(imageList[index][1]);
                                 if (imageList[_selectedOptionIdx!] ==
                                     questionList![_questionIdx]["i"]) {
                                   _isCorrect = true;
@@ -603,7 +229,7 @@ class _MyQuizState extends State<MyQuiz> {
                 Expanded(
                   flex: 1,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
