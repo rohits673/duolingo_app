@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import '../../widgets/quiz.dart';
 import '../../widgets/result.dart';
@@ -8,8 +7,9 @@ import 'dart:math';
 
 class MyQuiz extends StatefulWidget {
   int categoryIdx;
+  int levelIdx;
 
-  MyQuiz(this.categoryIdx);
+  MyQuiz(this.categoryIdx, this.levelIdx);
 
   @override
   State<MyQuiz> createState() => _MyQuizState();
@@ -17,16 +17,19 @@ class MyQuiz extends StatefulWidget {
 
 class _MyQuizState extends State<MyQuiz> {
   var _questionIdx = 0;
-  var _levelIdx = 0;
+  // var _levelIdx = 0;
   var _totalScore = 0;
   var _correctPercent = 0.0;
+  List totalPercent = [];
   int? _selectedOptionIdx;
   bool _isOptionSelected = false;
   late List _questions;
-  List? questionList;
+  List questionList = [];
+  List questionSet = [];
   int? qListLength;
   var _isCorrect = false;
   List imageList = [];
+  List RandQuestionList = [];
 
   final FlutterTts tts = FlutterTts();
   final TextEditingController controller =
@@ -44,7 +47,7 @@ class _MyQuizState extends State<MyQuiz> {
         _correctPercent = _totalScore / qListLength!;
       });
     } else {
-      questionList!.add(questionList![_questionIdx]);
+      RandQuestionList.add(RandQuestionList[_questionIdx]);
     }
     showModalBottomSheet<void>(
       context: context,
@@ -78,14 +81,23 @@ class _MyQuizState extends State<MyQuiz> {
                   onPressed: () {
                     Navigator.of(context).pop();
                     setState(() {
-                      _questionIdx += 1;
-                      _selectedOptionIdx = null;
-                      _isOptionSelected = false;
-                      // shuffleImageList();
+                      if (_questionIdx < RandQuestionList.length - 1) {
+                        _questionIdx += 1;
+                        _selectedOptionIdx = null;
+                        _isOptionSelected = false;
+                      } else {
+                        widget.levelIdx += 1;
+                        _selectedOptionIdx = null;
+                        _isOptionSelected = false;
+                        _questionIdx = 0;
+                        _totalScore = 0;
+                        totalPercent.add(_correctPercent);
+                        _correctPercent = 0;
+                        loadQuiz();
+                      }
                     });
-                    if (_questionIdx < questionList!.length) {
+                    if (_questionIdx < RandQuestionList.length) {
                       shuffleImageList();
-                      // questionList!.shuffle();
                     }
                   },
                   child: Text(
@@ -102,27 +114,39 @@ class _MyQuizState extends State<MyQuiz> {
   }
 
   void shuffleImageList() {
-    Set randomQImg = {questionList![_questionIdx]["i"]};
+    Set randomQImg = {RandQuestionList[_questionIdx]["i"]};
     while (randomQImg.length < 4) {
-      randomQImg
-          .add(questionList![Random().nextInt(questionList!.length)]["i"]);
+      randomQImg.add(
+          RandQuestionList[Random().nextInt(RandQuestionList.length)]["i"]);
     }
     imageList = [...randomQImg];
     imageList.shuffle();
   }
 
-  bool darkModeOn = false;
+  void shuffleQuestionList() {
+    Set randomQues = {};
+    while (randomQues.length < questionList.length) {
+      randomQues.add(questionList[Random().nextInt(questionList.length)]);
+    }
+    RandQuestionList = [...randomQues];
+  }
+
+  void loadQuiz() {
+    questionList = (_questions[widget.categoryIdx] as dynamic)["set"]
+        [widget.levelIdx]["items"];
+    shuffleQuestionList();
+    shuffleImageList();
+  }
+
   @override
   void initState() {
-    var brightness = SchedulerBinding.instance?.window.platformBrightness;
-    darkModeOn = brightness == Brightness.dark;
     _questions = QuestionList.getQuestionList();
-    questionList =
-        (_questions[widget.categoryIdx] as dynamic)["set"][_levelIdx]["items"];
-    shuffleImageList();
+    questionSet = _questions[widget.categoryIdx]["set"];
+    print(questionSet.length);
+    print(widget.levelIdx);
+    loadQuiz();
     super.initState();
-
-    qListLength = questionList!.length;
+    qListLength = RandQuestionList.length;
   }
 
   @override
@@ -133,12 +157,16 @@ class _MyQuizState extends State<MyQuiz> {
         centerTitle: true,
         elevation: 0,
         leading: new IconButton(
-          icon: new Icon(
-            Icons.close,
-            color: Colors.blueGrey,
-          ),
-          onPressed: () => Navigator.pop(context, _correctPercent),
-        ),
+            icon: new Icon(
+              Icons.close,
+              color: Colors.blueGrey,
+            ),
+            onPressed: () {
+              print(questionSet.length);
+
+              totalPercent.add(_correctPercent);
+              Navigator.pop(context, totalPercent);
+            }),
         title: ClipRRect(
           clipBehavior: Clip.antiAlias,
           borderRadius: BorderRadius.circular(20),
@@ -146,10 +174,10 @@ class _MyQuizState extends State<MyQuiz> {
               backgroundColor: Colors.blueGrey,
               minHeight: 15,
               valueColor: new AlwaysStoppedAnimation<Color>(Colors.lightGreen),
-              value: _questionIdx / questionList!.length),
+              value: _questionIdx / RandQuestionList.length),
         ),
       ),
-      body: _questionIdx < questionList!.length
+      body: widget.levelIdx < questionSet.length
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -159,12 +187,12 @@ class _MyQuizState extends State<MyQuiz> {
                     children: [
                       IconButton(
                         onPressed: () {
-                          tts.speak(questionList![_questionIdx]["q"]);
+                          tts.speak(RandQuestionList[_questionIdx]["q"]);
                         },
                         icon: Icon(Icons.surround_sound),
                       ),
                       Quiz(
-                        questions: questionList![_questionIdx]["q"],
+                        questions: RandQuestionList[_questionIdx]["q"],
                       ),
                     ],
                   ),
@@ -210,7 +238,7 @@ class _MyQuizState extends State<MyQuiz> {
                                 _isOptionSelected = true;
                                 tts.speak(imageList[index][1]);
                                 if (imageList[_selectedOptionIdx!] ==
-                                    questionList![_questionIdx]["i"]) {
+                                    RandQuestionList[_questionIdx]["i"]) {
                                   _isCorrect = true;
                                 } else {
                                   _isCorrect = false;
@@ -249,7 +277,7 @@ class _MyQuizState extends State<MyQuiz> {
                 )
               ],
             )
-          : Result(_totalScore, qListLength!),
+          : Result(),
     );
   }
 }

@@ -33,23 +33,23 @@ class QuestionList {
           "level": "2",
           "items": [
             {
-              "q": "Who is king of jungle?",
+              "q": "Who is king of jungle?level2",
               "i": ["assets/images/questions/icons8-lion.png", "lion"],
             },
             {
-              "q": "Who is fastest animal?",
+              "q": "Who is fastest animal?level2",
               "i": ["assets/images/questions/icons8-tiger.png", "tiger"],
             },
             {
-              "q": "Who can fly?",
+              "q": "Who can fly?level2",
               "i": ["assets/images/questions/icons8-ostrich.png", "ostrich"],
             },
             {
-              "q": "Who is biggest?",
+              "q": "Who is biggest?level2",
               "i": ["assets/images/questions/icons8-elephant.png", "elephant"],
             },
             {
-              "q": "Who is smallest?",
+              "q": "Who is smallest?level2",
               "i": ["assets/images/questions/icons8-ant.png", "ant"],
             }
           ]
@@ -364,7 +364,63 @@ class QuestionList {
           ]
         }
       ]
-    }
+    },
+    {
+      "category": "Basic-1",
+      "image": "assets/images/home_screen/lesson_egg.png",
+      "set": [
+        {
+          "level": "1",
+          "items": [
+            {
+              "q": "Who is king of jungle?",
+              "i": ["", "lion"],
+            },
+            {
+              "q": "Who is fastest animal?",
+              "i": ["assets/images/questions/icons8-tiger.png", "tiger"],
+            },
+            {
+              "q": "Who can fly?",
+              "i": ["assets/images/questions/icons8-ostrich.png", "ostrich"],
+            },
+            {
+              "q": "Who is biggest?",
+              "i": ["assets/images/questions/icons8-elephant.png", "elephant"],
+            },
+            {
+              "q": "Who is smallest?",
+              "i": ["assets/images/questions/icons8-ant.png", "ant"],
+            }
+          ]
+        },
+        {
+          "level": "2",
+          "items": [
+            {
+              "q": "Who is king of jungle?level2",
+              "i": ["assets/images/questions/icons8-lion.png", "lion"],
+            },
+            {
+              "q": "Who is fastest animal?level2",
+              "i": ["assets/images/questions/icons8-tiger.png", "tiger"],
+            },
+            {
+              "q": "Who can fly?",
+              "i": ["assets/images/questions/icons8-ostrich.png", "ostrich"],
+            },
+            {
+              "q": "Who is biggest?",
+              "i": ["assets/images/questions/icons8-elephant.png", "elephant"],
+            },
+            {
+              "q": "Who is smallest?",
+              "i": ["assets/images/questions/icons8-ant.png", "ant"],
+            }
+          ]
+        },
+      ]
+    },
   ];
 
   static List getQuestionList() {

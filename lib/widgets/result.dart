@@ -3,10 +3,10 @@ import 'package:confetti/confetti.dart';
 import 'dart:math';
 
 class Result extends StatefulWidget {
-  final int resultScore;
-  // final void Function() restartQuiz;
-  final int totalMarks;
-  Result(this.resultScore, this.totalMarks);
+  // double correctPercent;
+  // int _levelIdx;
+
+  // Result(this.correctPercent, this._levelIdx);
 
   @override
   State<Result> createState() => _ResultState();
@@ -67,7 +67,9 @@ class _ResultState extends State<Result> {
                           EdgeInsets.symmetric(vertical: 15, horizontal: 100),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50))),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                   child: Text(
                     "Continue",
                     style: TextStyle(fontSize: 22),
@@ -88,7 +90,7 @@ class _ResultState extends State<Result> {
         confettiController: controller,
         blastDirection: blastDirection,
         emissionFrequency: 0.01,
-        numberOfParticles: 80,
+        numberOfParticles: 50,
         maxBlastForce: 100,
         minBlastForce: 80,
         gravity: 0.2,
