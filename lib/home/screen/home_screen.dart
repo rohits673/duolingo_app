@@ -15,23 +15,17 @@ class _HomeScreenState extends State<HomeScreen> {
   late List _questions;
   var categoryLength = 0;
 
-  Text _textCirle(String text) => Text(
-        text,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-      );
-
   @override
   void initState() {
     _questions = QuestionList.getQuestionList();
     categoryLength = _questions.length;
-    print(categoryLength);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GridView.builder(
+    return Container(
+      child: GridView.builder(
         physics: const BouncingScrollPhysics(),
         itemCount: categoryLength,
         itemBuilder: (context, index) => CircleAvatarIndicator(
@@ -47,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class CircleAvatarIndicator extends StatefulWidget {
-  // final Color _backgroundColor;
   final String _img;
   final int _categoryIdx;
 
@@ -58,8 +51,22 @@ class CircleAvatarIndicator extends StatefulWidget {
 }
 
 class _CircleAvatarIndicatorState extends State<CircleAvatarIndicator> {
+  late List _questions;
   List indicatorValue = [0.0];
   int levelIdx = 0;
+
+  Widget _textCirle(String text) => Padding(
+        padding: const EdgeInsets.only(bottom: 20),
+        child: Text(
+          text,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+      );
+  @override
+  void initState() {
+    _questions = QuestionList.getQuestionList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +106,10 @@ class _CircleAvatarIndicatorState extends State<CircleAvatarIndicator> {
             ),
           ),
         ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: _textCirle(_questions[widget._categoryIdx]["category"]),
+        )
       ],
     );
   }
