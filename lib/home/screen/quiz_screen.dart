@@ -132,8 +132,9 @@ class _MyQuizState extends State<MyQuiz> {
   }
 
   void loadQuiz() {
-    questionList = (_questions[widget.categoryIdx] as dynamic)["set"]
-        [widget.levelIdx]["items"];
+    if (widget.levelIdx < questionSet.length)
+      questionList = (_questions[widget.categoryIdx] as dynamic)["set"]
+          [widget.levelIdx]["items"];
     shuffleQuestionList();
     shuffleImageList();
   }
@@ -162,8 +163,6 @@ class _MyQuizState extends State<MyQuiz> {
               color: Colors.blueGrey,
             ),
             onPressed: () {
-              print(questionSet.length);
-
               totalPercent.add(_correctPercent);
               Navigator.pop(context, totalPercent);
             }),
@@ -277,7 +276,7 @@ class _MyQuizState extends State<MyQuiz> {
                 )
               ],
             )
-          : Result(),
+          : Result(totalPercent),
     );
   }
 }

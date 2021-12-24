@@ -5,8 +5,9 @@ import 'dart:math';
 class Result extends StatefulWidget {
   // double correctPercent;
   // int _levelIdx;
+  List totalPercent;
 
-  // Result(this.correctPercent, this._levelIdx);
+  Result(this.totalPercent);
 
   @override
   State<Result> createState() => _ResultState();
@@ -68,7 +69,7 @@ class _ResultState extends State<Result> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50))),
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.pop(context, widget.totalPercent);
                   },
                   child: Text(
                     "Continue",

@@ -55,13 +55,11 @@ class _CircleAvatarIndicatorState extends State<CircleAvatarIndicator> {
   List indicatorValue = [0.0];
   int levelIdx = 0;
 
-  Widget _textCirle(String text) => Padding(
-        padding: const EdgeInsets.only(bottom: 20),
-        child: Text(
-          text,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-        ),
+  Text _textCirle(String text) => Text(
+        text,
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
       );
+
   @override
   void initState() {
     _questions = QuestionList.getQuestionList();
